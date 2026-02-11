@@ -15,8 +15,8 @@
         :root {
             --primary-blue: #0056b3;
             --header-border: #e6e6e6;
-            --footer-main-blue: #0067b8; /* Lighter blue for main footer info */
-            --footer-dark-blue: #004d80; /* Darker blue for copyright */
+            --footer-main-blue: #0067b8;
+            --footer-dark-blue: #004d80;
             --bg-gray: #F2F2F2;
             --success-green: #2e7d32;
             --success-bg: #e8f5e9;
@@ -33,13 +33,14 @@
         }
 
         body {
-            font-family: kantumruy pro, sans-serif;
+            font-family: 'Kantumruy Pro', sans-serif;
             background-color: var(--bg-gray);
             color: var(--text-dark);
             font-size: 16px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll from slider */
         }
 
         .container-wide {
@@ -54,6 +55,9 @@
             background: white;
             border-bottom: 1px solid var(--header-border);
             width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .top-nav-inner {
@@ -66,6 +70,13 @@
         .logo-area img {
             height: 40px;
             width: auto;
+        }
+
+        /* Right Header Group */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         .nav-links {
@@ -85,7 +96,6 @@
             display: flex;
             gap: 11px;
             align-items: center;
-            padding-left: 11px;
         }
         
         .flag-icon {
@@ -102,6 +112,14 @@
 
         .flag-kh { background: url('https://flagcdn.com/kh.svg') no-repeat center/cover; }
         .flag-en { background: url('https://flagcdn.com/gb.svg') no-repeat center/cover; }
+
+        .mobile-menu-btn {
+            display: none; /* Hidden by default */
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            margin-left: 15px;
+        }
 
         /* --- Status Bar --- */
         .status-bar {
@@ -204,7 +222,6 @@
             align-items: flex-start;
         }
 
-
         .data-row:first-child { padding-top: 2px; }
         .data-row:last-child { border-bottom: none; }
 
@@ -217,7 +234,7 @@
         .value-text { display: block; font-weight: 550; color: #000000; font-size: 24px; line-height: 1.5; }
         .value-sub { display: block; font-weight: 550; color: #000000; font-size: 24px; margin-top: 5px; }
 
-        /* --- White Footer Section (Vertical Structure) --- */
+        /* --- White Footer Section --- */
         .white-footer-outer {
             background: white;
             border-top: 1px solid #e9ecef;
@@ -242,7 +259,6 @@
             font-size: 15px;
             display: block;
             margin-top: 1px;
-            font-family: kantumruy pro, sans-serif;
         }
 
         .wf-inner-line {
@@ -257,7 +273,6 @@
             color: #6c757d;
             font-weight: 700;
             margin-bottom: 12px;
-            font-family: kantumruy pro, sans-serif;
         }
         
         .collaboration-header {
@@ -298,18 +313,43 @@
         .wf-collaboration-area {
             padding-top: 15px;
             padding-bottom: 40px;
+            overflow: hidden; /* Hide scrollbars for the slider */
         }
 
-        .collab-grid {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 20px;
+        /* --- Marquee/Slider Styles --- */
+        .slider-row {
+            display: flex;
             width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            width: max-content; /* Important: allow width to exceed container */
+            animation: scroll 40s linear infinite;
+            gap: 20px;
+        }
+        
+        .slider-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* REMOVED the reverse animation for the second row so both slide left */
+        /* .slider-row:nth-child(even) .slider-track {
+            animation-direction: reverse;
+        }
+        */
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Move half way (since content is doubled) */
         }
 
         .partner-logo {
-            width: 100%;
-            aspect-ratio: 1;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             background-color: white;
             border: 1px solid #f1f3f5;
@@ -319,8 +359,7 @@
             overflow: hidden;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             padding: 15px;
-            max-width: 90px;
-            margin: 0 auto; /* Center logo in grid cell if necessary */
+            flex-shrink: 0; /* Prevent logos from shrinking */
         }
         
         .partner-logo img {
@@ -347,7 +386,6 @@
             color: white;
             padding: 20px 0;
             font-size: 13px;
-            font-family: kantumruy pro, sans-serif;
         }
 
         .footer-info-block {
@@ -408,20 +446,40 @@
             opacity: 0.9;
         }
 
+        /* --- Mobile Responsive Fixes --- */
         @media (max-width: 768px) {
-            .data-row { flex-direction: column; }
-            .label-col, .value-col { width: 100%; }
-            .label-col { margin-bottom: 9px; }
-            .collab-grid { 
-                grid-template-columns: repeat(4, 1fr);
+            /* Fix 1: Navigation */
+            .nav-links { 
+                display: none; /* Hide text links */
             }
-            .nav-links { display: none; }
+            .mobile-menu-btn {
+                display: block; /* Show hamburger */
+            }
+            /* Note: .flags remains visible in .header-right */
+
+            /* Fix 2: Data Table Layout */
+            .data-row { 
+                flex-direction: row; /* Force side-by-side */
+                align-items: flex-start;
+            }
+            .label-col { 
+                width: 35%; /* Fixed width for label */
+                padding-right: 10px;
+            }
+            .value-col { 
+                width: 65%; /* Remaining width for value */
+            }
+            /* Adjust font sizes slightly for mobile if needed */
+            .label-text, .label-sub { font-size: 18px; }
+            .value-text, .value-sub { font-size: 18px; }
+            .uni-logo-img { width: 300px; }
         }
         
         @media (max-width: 480px) {
-            .collab-grid { 
-                grid-template-columns: repeat(3, 1fr);
-            }
+            /* Further refinement for very small screens */
+            .label-col { width: 40%; }
+            .value-col { width: 60%; }
+            .logo-area img { height: 32px; }
         }
     </style>
 </head>
@@ -432,12 +490,23 @@
             <div class="logo-area">
                 <img src="logos/Verify-logo.png" alt="Verify Logo">
             </div>
-            <div class="nav-links">
-                <a href="#" class="nav-how" data-kh="របៀបដំណើរការ" data-en="How it works">របៀបដំណើរការ</a>
-                <a href="#" class="nav-faq" data-kh="សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់" data-en="FAQ">សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់</a>
+            
+            <div class="header-right">
+                <!-- Text Links (Hidden on mobile via CSS) -->
+                <div class="nav-links">
+                    <a href="#" class="nav-how" data-kh="របៀបដំណើរការ" data-en="How it works">របៀបដំណើរការ</a>
+                    <a href="#" class="nav-faq" data-kh="សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់" data-en="FAQ">សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់</a>
+                </div>
+                
+                <!-- Flags (Visible always) -->
                 <div class="flags">
                     <div class="flag-icon flag-kh active" onclick="switchLanguage('kh')" title="Khmer"></div>
                     <div class="flag-icon flag-en" onclick="switchLanguage('en')" title="English"></div>
+                </div>
+
+                <!-- Hamburger Menu (Visible on mobile via CSS) -->
+                <div class="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
                 </div>
             </div>
         </div>
@@ -468,9 +537,6 @@
                     <img src="logos/bbu-logo.png" alt="BBU Logo" class="uni-logo-img">
                 </div>
                 
-                <!--Name and student information put in here Houchi-->
-                <!--need to upload logo in folder before insert and put in, example: student_photo/namephoto.jpg -->
-
                 <div class="photo-container">
                     <img src="logos/student_photo/download.png" alt="Student Photo" class="student-photo">
                 </div>
@@ -547,8 +613,8 @@
 
                 <div class="section-header-small" id="pow-by" data-kh="រៀបចំនិងអភិវឌ្ឍដោយ" data-en="Powered By">រៀបចំនិងដំណើរការដោយ</div>
                 <div class="powered-logos">
-                    <div class="powered-logo-circle"><img src="logos/powered/MPTC.png" alt="MPTC"></div>
-                    <div class="powered-logo-circle"><img src="logos/powered/DGC.png" alt="DGC"></div>
+                    <div class="powered-logo-circle"><img src="logos/powered/DGC.png" alt="MPTC"></div>
+                    <div class="powered-logo-circle"><img src="logos/powered/MPTC.png" alt="DGC"></div>
                 </div>
             </div>
         </div>
@@ -557,24 +623,53 @@
 
         <div class="container-wide wf-collaboration-area">
             <div class="section-header-small collaboration-header" data-kh="កិច្ចសហប្រតិបត្តិការ" data-en="A Collaboration between">កិច្ចសហប្រតិបត្តិការ</div>
-            <div class="collab-grid">
-                <div class="partner-logo"><img src="logos/partner/AKU.png"></div>
-                <div class="partner-logo"><img src="logos/partner/BELTIE.png"></div>
-                <div class="partner-logo"><img src="logos/partner/CMU.png"></div>
-                <div class="partner-logo"><img src="logos/partner/ERA.png"></div>
-                <div class="partner-logo"><img src="logos/partner/IT-STEP.png"></div>
-                <div class="partner-logo"><img src="logos/partner/MCFA.png"></div>
-                <div class="partner-logo"><img src="logos/partner/MoC-update.png"></div>
-                <div class="partner-logo"><img src="logos/partner/MoEYS.png"></div>
-                <div class="partner-logo"><img src="logos/partner/MoInspection.png"></div>
-                <div class="partner-logo"><img src="logos/partner/NDU.png"></div>
-                <div class="partner-logo"><img src="logos/partner/NU.png"></div>
-                <div class="partner-logo"><img src="logos/partner/NUM.png"></div>
-                <div class="partner-logo"><img src="logos/partner/RUA.png"></div>
-                <div class="partner-logo"><img src="logos/partner/RUPP.png"></div>
-                <div class="partner-logo"><img src="logos/partner/UHS.png"></div>
-                <div class="partner-logo"><img src="logos/partner/UK.png"></div>
+            
+            <!-- Row 1: Sliding Logos (First 8, Duplicated for infinite loop) -->
+            <div class="slider-row">
+                <div class="slider-track">
+                    <div class="partner-logo"><img src="logos/partner/AKU.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/BELTIE.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/CMU.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/ERA.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/IT-STEP.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/MCFA.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/MoC-update.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/MoEYS.png"></div>
+                    <!-- Duplicate for loop -->
+                    <div class="partner-logo"><img src="logos/partner/AKU.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/BELTIE.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/CMU.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/ERA.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/IT-STEP.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/MCFA.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/MoC-update.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/MoEYS.png"></div>
+                </div>
             </div>
+
+            <!-- Row 2: Sliding Logos (Next 8, Duplicated) -->
+            <div class="slider-row">
+                <div class="slider-track">
+                    <div class="partner-logo"><img src="logos/partner/MoInspection.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/NDU.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/NU.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/NUM.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/RUA.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/RUPP.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/UHS.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/UK.png"></div>
+                    <!-- Duplicate for loop -->
+                    <div class="partner-logo"><img src="logos/partner/MoInspection.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/NDU.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/NU.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/NUM.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/RUA.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/RUPP.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/UHS.png"></div>
+                    <div class="partner-logo"><img src="logos/partner/UK.png"></div>
+                </div>
+            </div>
+
         </div>
     </section>
 
