@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify.gov.kh - Document Validation</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Inter:wght@400;500;600;700&family=Kantumruy+Pro:wght@400;500;600;700&family=Moul&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #0056b3;
+            --header-border: #e6e6e6;
+            --footer-main-blue: #0067b8; /* Lighter blue for main footer info */
+            --footer-dark-blue: #004d80; /* Darker blue for copyright */
+            --bg-gray: #F2F2F2;
+            --success-green: #2e7d32;
+            --success-bg: #e8f5e9;
+            --text-dark: #333;
+            --text-light: #666;
+            --border-color: #ddd;
+            --max-content-width: 1300px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: kantumruy pro, sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container-wide {
+            max-width: var(--max-content-width);
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        /* --- Top Navigation --- */
+        .top-nav-outer {
+            background: white;
+            border-bottom: 1px solid var(--header-border);
+            width: 100%;
+        }
+
+        .top-nav-inner {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area img {
+            height: 40px;
+            width: auto;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #495057;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .flags {
+            display: flex;
+            gap: 11px;
+            align-items: center;
+            padding-left: 11px;
+        }
+        
+        .flag-icon {
+            width: 26px;
+            height: 18px;
+            border-radius: 2px;
+            border: 1px solid #dee2e6;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .flag-icon:hover { transform: scale(1.1); }
+        .flag-icon.active { outline: 2px solid var(--primary-blue); outline-offset: 1px; }
+
+        .flag-kh { background: url('https://flagcdn.com/kh.svg') no-repeat center/cover; }
+        .flag-en { background: url('https://flagcdn.com/gb.svg') no-repeat center/cover; }
+
+        /* --- Status Bar --- */
+        .status-bar {
+            background-color: #F2F2F2;
+            color: var(--success-green);
+            text-align: center;
+            padding: 12px;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 11px;
+            border-bottom: 1px solid #F2F2F2;
+            font-size: 20px;
+        }
+
+        /* --- Main Content --- */
+        .main-container {
+            width: 100%;
+            padding: 0;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .issued-bar {
+            background: #f2f8fc;
+            color: #333333;
+            padding: 11px;
+            font-size: 16px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        #uni-name {
+            font-weight: 550;
+        }
+        
+        .instruction-text {
+            color: #025EAB;
+            font-weight: 600;
+            margin: 33px auto;
+            font-size: 24px;
+            max-width: var(--max-content-width);
+            padding: 0 22px;
+        }
+
+        /* --- The Card --- */
+        .id-card-wrapper {
+            max-width: var(--max-content-width);
+            margin: 0 auto 66px auto;
+            padding: 0 22px;
+        }
+
+        .id-card {
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 13px rgba(0,0,0,0.03);
+            padding: 20px 22px;
+            width: 100%;
+        }
+
+        .uni-header {
+            margin-bottom: 44px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .uni-logo-img {
+            width: 400px;
+            max-width: 100%;
+            margin-bottom: 17px;
+        }
+
+        .photo-container {
+            margin: 0 0 11px 0; 
+            display: flex;
+            justify-content: center;
+        }
+
+        .student-photo {
+            width: 121px;
+            height: 160px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .data-table {
+            width: 100%;
+            max-width: 770px;
+            margin: 0 auto;
+            text-align: left;
+            font-family: 'Kantumruy Pro', sans-serif;
+        }
+
+        .data-row {
+            display: flex;
+            border-bottom: 1px solid #bdbdbd;
+            padding: 22px 0;
+            align-items: flex-start;
+        }
+
+
+        .data-row:first-child { padding-top: 2px; }
+        .data-row:last-child { border-bottom: none; }
+
+        .label-col { width: 35%; padding-right: 22px; }
+        .value-col { width: 65%; }
+
+        .label-text { display: block; color: #000000; font-size: 22px; }
+        .label-sub { display: block; color: #000000; font-size: 22px; margin-top: 3px; }
+        
+        .value-text { display: block; font-weight: 550; color: #000000; font-size: 24px; line-height: 1.5; }
+        .value-sub { display: block; font-weight: 550; color: #000000; font-size: 24px; margin-top: 5px; }
+
+        /* --- White Footer Section (Vertical Structure) --- */
+        .white-footer-outer {
+            background: white;
+            border-top: 1px solid #e9ecef;
+            width: 100%;
+        }
+
+        .wf-section {
+            padding: 20px 0;
+        }
+
+        .wf-links-area {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .wf-links-area a {
+            text-decoration: none;
+            color: #025EAB;
+            font-weight: 600;
+            font-size: 15px;
+            display: block;
+            margin-top: 1px;
+            font-family: kantumruy pro, sans-serif;
+        }
+
+        .wf-inner-line {
+            height: 1px;
+            background-color: #e9ecef;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .section-header-small {
+            font-size: 13px;
+            color: #6c757d;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: kantumruy pro, sans-serif;
+        }
+        
+        .collaboration-header {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .powered-logos {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .powered-logo-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 1px solid #eee;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .powered-logo-circle img {
+            width: 85%;
+            height: auto;
+        }
+
+        .wf-divider {
+            height: 1px;
+            background-color: #e9ecef;
+            width: 100%;
+            margin: 0;
+        }
+
+        .wf-collaboration-area {
+            padding-top: 15px;
+            padding-bottom: 40px;
+        }
+
+        .collab-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .partner-logo {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background-color: white;
+            border: 1px solid #f1f3f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            padding: 15px;
+            max-width: 90px;
+            margin: 0 auto; /* Center logo in grid cell if necessary */
+        }
+        
+        .partner-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* --- Footer (Two Tones) --- */
+        footer {
+            width: 100%;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .footer-main {
+            background-color: var(--footer-main-blue);
+            color: white;
+            padding: 40px 0 20px 0;
+        }
+
+        .footer-bottom {
+            background-color: var(--footer-dark-blue);
+            color: white;
+            padding: 20px 0;
+            font-size: 13px;
+            font-family: kantumruy pro, sans-serif;
+        }
+
+        .footer-info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-row i {
+            margin-top: 4px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .social-block {
+            margin-top: 10px;
+            margin-bottom: 0; 
+        }
+        
+        .social-title {
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .s-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 14px;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .s-icon:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .copyright-text {
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .data-row { flex-direction: column; }
+            .label-col, .value-col { width: 100%; }
+            .label-col { margin-bottom: 9px; }
+            .collab-grid { 
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .nav-links { display: none; }
+        }
+        
+        @media (max-width: 480px) {
+            .collab-grid { 
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body data-lang="kh">
+
+    <header class="top-nav-outer">
+        <div class="container-wide top-nav-inner">
+            <div class="logo-area">
+                <img src="logos/Verify-logo.png" alt="Verify Logo">
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-how" data-kh="របៀបដំណើរការ" data-en="How it works">របៀបដំណើរការ</a>
+                <a href="#" class="nav-faq" data-kh="សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់" data-en="FAQ">សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់</a>
+                <div class="flags">
+                    <div class="flag-icon flag-kh active" onclick="switchLanguage('kh')" title="Khmer"></div>
+                    <div class="flag-icon flag-en" onclick="switchLanguage('en')" title="English"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="status-bar" id="status-bar" data-kh="ឯកសារមានសុពលភាព" data-en="Document is valid">
+        <div style="width: 25px; height: 25px; border: 3px solid #2e7d32; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px;">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <span class="lang-target">ឯកសារមានសុពលភាព</span>
+    </div>
+
+    <main class="main-container">
+        <div class="issued-bar">
+            <span id="issued-by-text" data-kh="ចេញដោយ" data-en="Issued by">ចេញដោយ</span> 
+            <strong id="uni-name" data-kh="សាកលវិទ្យាល័យ បៀលប្រាយ" data-en="Build Bright University">សាកលវិទ្យាល័យ បៀលប្រាយ</strong>
+        </div>
+
+        <h2 class="instruction-text" id="main-instruction" 
+            data-kh="សូមពិនិត្យឯកសាររបស់អ្នកជាមួយទិន្នន័យខាងក្រោម ដើម្បីផ្ទៀងផ្ទាត់ភាពត្រឹមត្រូវ" 
+            data-en="Please check the authenticity of your file with the data below">
+            សូមពិនិត្យឯកសាររបស់អ្នកជាមួយទិន្នន័យខាងក្រោម ដើម្បីផ្ទៀងផ្ទាត់ភាពត្រឹមត្រូវ
+        </h2>
+
+        <div class="id-card-wrapper">
+            <div class="id-card">
+                <div class="uni-header">
+                    <img src="logos/bbu-logo.png" alt="BBU Logo" class="uni-logo-img">
+                </div>
+                
+                <!--Name and student information put in here Houchi-->
+                <!--need to upload logo in folder before insert and put in, example: student_photo/namephoto.jpg -->
+
+                <div class="photo-container">
+                    <img src="logos/student_photo/download.png" alt="Student Photo" class="student-photo">
+                </div>
+
+                <div class="data-table">
+                    <!-- Row: Name -->
+                    <div class="data-row">
+                        <div class="label-col">
+                            <span class="label-text">ឈ្មោះ</span>
+                            <span class="label-sub">Name</span>
+                        </div>
+                        <div class="value-col">
+                            <span class="value-text">រ៉ូម ដារ៉ា</span>
+                            <span class="value-sub">Rom Dara</span>
+                        </div>
+                    </div>
+
+                    <!-- Row: DOB -->
+                    <div class="data-row">
+                        <div class="label-col">
+                            <span class="label-text">កើតថ្ងៃទី</span>
+                            <span class="label-sub">Born on</span>
+                        </div>
+                        <div class="value-col">
+                            <span class="value-text">ថ្ងៃទី២៣ ខែកុម្ភៈ ឆ្នាំ២០០២</span>
+                            <span class="value-sub">23 February 2002</span>
+                        </div>
+                    </div>
+
+                    <!-- Row: Degree -->
+                    <div class="data-row">
+                        <div class="label-col">
+                            <span class="label-text">សញ្ញាបត្រ</span>
+                            <span class="label-sub">Degree</span>
+                        </div>
+                        <div class="value-col">
+                            <span class="value-text">
+                                បរិញ្ញាបត្រសិល្បៈ<br>
+                                ជំនាញ នីតិសាស្ត្រ
+                            </span>
+                            <span class="value-sub">
+                                Bachelor of Arts<br>
+                                in Law
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Row: Awarded -->
+                    <div class="data-row">
+                        <div class="label-col">
+                            <span class="label-text">ទទួលសញ្ញាបត្រ</span>
+                            <span class="label-sub">Awarded</span>
+                        </div>
+                        <div class="value-col">
+                            <span class="value-text">ថ្ងៃទី០៧ ខែតុលា ឆ្នាំ២០២៥</span>
+                            <span class="value-sub">7 October 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="white-footer-outer">
+        <div class="container-wide">
+            <div class="wf-section">
+                <div class="wf-links-area">
+                    <a href="#" class="link-item" id="low-verify" data-kh="ផ្ទៀងផ្ទាត់ឯកសាររដ្ឋាភិបាល" data-en="Verify Government Document(s)">ផ្ទៀងផ្ទាត់ឯកសាររដ្ឋាភិបាល</a>
+                    <a href="#" class="link-item" id="low-how" data-kh="របៀបដំណើរការ" data-en="How it works">របៀបដំណើរការ</a>
+                    <a href="#" class="link-item" id="low-faq" data-kh="សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់" data-en="FAQ">សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់</a>
+                </div>
+                
+                <div class="wf-inner-line"></div>
+
+                <div class="section-header-small" id="pow-by" data-kh="រៀបចំនិងអភិវឌ្ឍដោយ" data-en="Powered By">រៀបចំនិងដំណើរការដោយ</div>
+                <div class="powered-logos">
+                    <div class="powered-logo-circle"><img src="logos/powered/MPTC.png" alt="MPTC"></div>
+                    <div class="powered-logo-circle"><img src="logos/powered/DGC.png" alt="DGC"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wf-divider"></div>
+
+        <div class="container-wide wf-collaboration-area">
+            <div class="section-header-small collaboration-header" data-kh="កិច្ចសហប្រតិបត្តិការ" data-en="A Collaboration between">កិច្ចសហប្រតិបត្តិការ</div>
+            <div class="collab-grid">
+                <div class="partner-logo"><img src="logos/partner/AKU.png"></div>
+                <div class="partner-logo"><img src="logos/partner/BELTIE.png"></div>
+                <div class="partner-logo"><img src="logos/partner/CMU.png"></div>
+                <div class="partner-logo"><img src="logos/partner/ERA.png"></div>
+                <div class="partner-logo"><img src="logos/partner/IT-STEP.png"></div>
+                <div class="partner-logo"><img src="logos/partner/MCFA.png"></div>
+                <div class="partner-logo"><img src="logos/partner/MoC-update.png"></div>
+                <div class="partner-logo"><img src="logos/partner/MoEYS.png"></div>
+                <div class="partner-logo"><img src="logos/partner/MoInspection.png"></div>
+                <div class="partner-logo"><img src="logos/partner/NDU.png"></div>
+                <div class="partner-logo"><img src="logos/partner/NU.png"></div>
+                <div class="partner-logo"><img src="logos/partner/NUM.png"></div>
+                <div class="partner-logo"><img src="logos/partner/RUA.png"></div>
+                <div class="partner-logo"><img src="logos/partner/RUPP.png"></div>
+                <div class="partner-logo"><img src="logos/partner/UHS.png"></div>
+                <div class="partner-logo"><img src="logos/partner/UK.png"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-main">
+            <div class="container-wide">
+                <div class="footer-info-block">
+                    <div class="info-row">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span id="foot-addr" 
+                            data-kh="អគារលេខ១៣ មហាវិថីព្រះមុនីវង្ស សង្កាត់ស្រះចក ខណ្ឌដូនពេញរាជធានីភ្នំពេញ 120210" 
+                            data-en="Building 13, Monivong Blvd, Sangkat Srah Chak, Khan Daun Penh, Phnom Penh, Cambodia 120210">
+                            អគារលេខ១៣ មហាវិថីព្រះមុនីវង្ស សង្កាត់ស្រះចក ខណ្ឌដូនពេញរាជធានីភ្នំពេញ 120210
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>info@mptc.gov.kh</span>
+                    </div>
+                </div>
+
+                <div class="social-block">
+                    <div class="social-title" data-kh="សម្រាប់ព័ត៌មានថ្មីៗ" data-en="Social Media">សម្រាប់ព័ត៌មានថ្មីៗ</div>
+                    <div class="social-icons">
+                        <a href="#" class="s-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="s-icon"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="s-icon"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="s-icon"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="s-icon"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container-wide">
+                <div class="copyright-text" data-kh="© 2026 | គណៈកម្មាធិការរដ្ឋាភិបាលឌីជីថល" data-en="© 2026 | Digital Government Committee">
+                    © 2026 | Digital Government Committee
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchLanguage(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.querySelectorAll('.flag-icon').forEach(f => f.classList.remove('active'));
+            document.querySelector(`.flag-${lang}`).classList.add('active');
+
+            const elements = document.querySelectorAll('[data-kh]');
+            elements.forEach(el => {
+                const text = el.getAttribute(`data-${lang}`);
+                if(el.children.length === 0) {
+                    el.innerText = text;
+                } else if (el.querySelector('.lang-target')) {
+                    el.querySelector('.lang-target').innerText = text;
+                } else {
+                    for(let node of el.childNodes) {
+                        if(node.nodeType === 3 && node.textContent.trim().length > 0) {
+                            node.textContent = text;
+                            break; 
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
