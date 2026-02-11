@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120" width="300" height="120">
+  <!-- Blue checkmark box -->
+  <rect x="10" y="10" width="70" height="70" fill="#0056b3" rx="4"/>
+  <path d="M25 45 L40 60 L60 30" stroke="white" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- VERIFY text -->
+  <text x="100" y="55" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#0056b3">VERIFY</text>
+  
+  <!-- GOV.KH text -->
+  <text x="100" y="85" font-family="Arial, sans-serif" font-size="20" fill="#00a0d2">GOV.KH</text>
+</svg>
