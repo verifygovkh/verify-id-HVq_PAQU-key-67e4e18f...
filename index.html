@@ -40,7 +40,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow-x: hidden; /* Prevent horizontal scroll from slider */
+            overflow-x: hidden;
         }
 
         .container-wide {
@@ -68,11 +68,10 @@
         }
 
         .logo-area img {
-            height: 40px;
+            height: 41px;
             width: auto;
         }
 
-        /* Right Header Group */
         .header-right {
             display: flex;
             align-items: center;
@@ -92,7 +91,6 @@
             font-weight: 600;
         }
         
-        /* Updated Language Selector Styles */
         .language-selector {
             display: flex;
             gap: 1px;
@@ -105,7 +103,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px; /* Rounded square container */
+            border-radius: 10px;
             border: 1px solid transparent;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -118,21 +116,20 @@
 
         .lang-btn.active {
             border-color: #e0ebf5;
-            background-color: rgb(235, 238, 247);
+            background-color: rgb(255, 255, 255);
         }
 
-        /* The Flag Image - Circular */
         .lang-btn img {
             width: 24px;
             height: 24px;
             border-radius: 50%;
             object-fit: cover;
             display: block;
-            border: 1px solid rgba(0,0,0,0.1); /* Subtle border around flag */
+            border: 1px solid rgba(0,0,0,0.1);
         }
 
         .mobile-menu-btn {
-            display: none; /* Hidden by default */
+            display: none;
             font-size: 24px;
             color: #333;
             cursor: pointer;
@@ -208,8 +205,10 @@
 
         .uni-logo-img {
             width: 400px;
+            height: auto;
             max-width: 100%;
             margin-bottom: 17px;
+            display: block;
         }
 
         .photo-container {
@@ -246,11 +245,11 @@
         .label-col { width: 35%; padding-right: 22px; }
         .value-col { width: 65%; }
 
-        .label-text { display: block; color: #000000; font-size: 22px; }
-        .label-sub { display: block; color: #000000; font-size: 22px; margin-top: 3px; }
+        .label-text { display: block; color: #000000; font-size: 20px}
+        .label-sub { display: block; color: #000000; font-size: 20px; margin-top: 10px; }
         
-        .value-text { display: block; font-weight: 550; color: #000000; font-size: 24px; line-height: 1.5; }
-        .value-sub { display: block; font-weight: 550; color: #000000; font-size: 24px; margin-top: 5px; }
+        .value-text { display: block; font-weight: 550; color: #000000; font-size: 22px; line-height: 1.5; }
+        .value-sub { display: block; font-weight: 550; color: #000000; font-size: 22px; margin-top: 5px; }
 
         /* --- White Footer Section --- */
         .white-footer-outer {
@@ -260,7 +259,7 @@
         }
 
         .wf-section {
-            padding: 20px 0;
+            padding: 22px 0;
         }
 
         .wf-links-area {
@@ -274,7 +273,7 @@
             text-decoration: none;
             color: #025EAB;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 16px;
             display: block;
             margin-top: 1px;
         }
@@ -330,52 +329,42 @@
         .wf-collaboration-area {
             padding-top: 15px;
             padding-bottom: 20px;
-            overflow: hidden; /* Hide scrollbars for the slider */
         }
 
-        /* --- Marquee/Slider Styles --- */
+        /* --- CAROUSEL SLIDER STYLES (Match Glide.js) --- */
         .slider-row {
-            display: flex;
+            display: block;
             width: 100%;
             margin-bottom: 20px;
             position: relative;
-            overflow: hidden;
+            overflow: hidden; /* This is the 'track' or viewport */
+            cursor: grab;
         }
 
         .slider-track {
             display: flex;
-            width: max-content; /* Important: allow width to exceed container */
-            animation: scroll 40s linear infinite;
-            gap: 20px;
+            width: max-content;
+            gap: 80px; /* Space between logo boxes */
+            /* Hardware acceleration */
+            transform: translate3d(0, 0, 0); 
+            will-change: transform;
         }
         
         .slider-row:last-child {
             margin-bottom: 0;
         }
-        
-        /* REMOVED the reverse animation for the second row so both slide left */
-        /* .slider-row:nth-child(even) .slider-track {
-            animation-direction: reverse;
-        }
-        */
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } /* Move half way (since content is doubled) */
-        }
 
         .partner-logo {
-            width: 90px;
-            height: 90px;
+            width: 85px;
+            height: 85px;
             border-radius: 50%;
             background-color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            padding: 15px;
-            flex-shrink: 0; /* Prevent logos from shrinking */
+            padding: 5px;
+            flex-shrink: 0;
         }
         
         .partner-logo img {
@@ -387,7 +376,7 @@
         /* --- Footer (Two Tones) --- */
         footer {
             width: 100%;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
         }
 
@@ -408,7 +397,7 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .info-row {
@@ -430,31 +419,30 @@
         
         .social-title {
             font-weight: 500;
-            margin-bottom: 12px;
-            font-size: 14px;
+            margin-bottom: 14px;
+            font-size: 16px;
         }
 
         .social-icons {
             display: flex;
-            gap: 20px; /* Space between icons */
+            gap: 20px;
             align-items: center;
         }
 
         .s-icon {
-            /* Removed fixed width/height and background circles */
             background: none;
             width: auto;
             height: auto;
             border-radius: 0;
             display: inline-block;
-            font-size: 25px; /* Larger icon size */
+            font-size: 22px;
             color: white;
             text-decoration: none;
             transition: opacity 0.2s;
         }
         
         .s-icon:hover {
-            background: rgba(255,255,255,0.3);
+            opacity: 0.7;
         }
 
         .copyright-text {
@@ -463,35 +451,21 @@
 
         /* --- Mobile Responsive Fixes --- */
         @media (max-width: 768px) {
-            /* Fix 1: Navigation */
-            .nav-links { 
-                display: none; /* Hide text links */
-            }
-            .mobile-menu-btn {
-                display: block; /* Show hamburger */
-            }
-            /* Note: .flags remains visible in .header-right */
-
-            /* Fix 2: Data Table Layout */
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
             .data-row { 
-                flex-direction: row; /* Force side-by-side */
+                flex-direction: row; 
                 align-items: flex-start;
             }
-            .label-col { 
-                width: 35%; /* Fixed width for label */
-                padding-right: 10px;
-            }
-            .value-col { 
-                width: 65%; /* Remaining width for value */
-            }
-            /* Adjust font sizes slightly for mobile if needed */
+            .label-col { width: 35%; padding-right: 10px; }
+            .value-col { width: 65%; }
             .label-text, .label-sub { font-size: 18px; }
             .value-text, .value-sub { font-size: 18px; }
             .uni-logo-img { width: 300px; }
+            .partner-logo { width: 70px; height: 70px; padding: 10px; }
         }
         
         @media (max-width: 480px) {
-            /* Further refinement for very small screens */
             .label-col { width: 40%; }
             .value-col { width: 60%; }
             .logo-area img { height: 32px; }
@@ -507,25 +481,20 @@
             </div>
             
             <div class="header-right">
-                <!-- Text Links (Hidden on mobile via CSS) -->
                 <div class="nav-links">
                     <a href="#" class="nav-how" data-kh="របៀបដំណើរការ" data-en="How it works">របៀបដំណើរការ</a>
                     <a href="#" class="nav-faq" data-kh="សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់" data-en="FAQ">សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់</a>
                 </div>
                 
-                <!-- Flags (New Structure: Square button with circle flag) -->
                 <div class="language-selector">
-                    <!-- Khmer Button (Active by default) -->
                     <div class="lang-btn active" id="btn-kh" onclick="switchLanguage('kh')" title="Khmer">
                         <img src="https://flagcdn.com/w160/kh.png" alt="Khmer">
                     </div>
-                    <!-- English Button -->
                     <div class="lang-btn" id="btn-en" onclick="switchLanguage('en')" title="English">
                         <img src="https://flagcdn.com/w160/gb.png" alt="English">
                     </div>
                 </div>
 
-                <!-- Hamburger Menu (Visible on mobile via CSS) -->
                 <div class="mobile-menu-btn">
                     <i class="fa-solid fa-bars"></i>
                 </div>
@@ -563,7 +532,6 @@
                 </div>
 
                 <div class="data-table">
-                    <!-- Row: Name -->
                     <div class="data-row">
                         <div class="label-col">
                             <span class="label-text">ឈ្មោះ</span>
@@ -575,7 +543,6 @@
                         </div>
                     </div>
 
-                    <!-- Row: DOB -->
                     <div class="data-row">
                         <div class="label-col">
                             <span class="label-text">កើតថ្ងៃទី</span>
@@ -587,7 +554,6 @@
                         </div>
                     </div>
 
-                    <!-- Row: Degree -->
                     <div class="data-row">
                         <div class="label-col">
                             <span class="label-text">សញ្ញាបត្រ</span>
@@ -605,7 +571,6 @@
                         </div>
                     </div>
 
-                    <!-- Row: Awarded -->
                     <div class="data-row">
                         <div class="label-col">
                             <span class="label-text">ទទួលសញ្ញាបត្រ</span>
@@ -645,9 +610,10 @@
         <div class="container-wide wf-collaboration-area">
             <div class="section-header-small collaboration-header" data-kh="កិច្ចសហប្រតិបត្តិការ" data-en="A Collaboration between">កិច្ចសហប្រតិបត្តិការ</div>
             
-            <!-- Row 1: Sliding Logos (First 8, Duplicated for infinite loop) -->
-            <div class="slider-row">
+            <!-- Row 1 Slider -->
+            <div class="slider-row" id="slider-1">
                 <div class="slider-track">
+                    <!-- Set 1 -->
                     <div class="partner-logo"><img src="logos/partner/AKU.png"></div>
                     <div class="partner-logo"><img src="logos/partner/BELTIE.png"></div>
                     <div class="partner-logo"><img src="logos/partner/CMU.png"></div>
@@ -656,7 +622,7 @@
                     <div class="partner-logo"><img src="logos/partner/MCFA.png"></div>
                     <div class="partner-logo"><img src="logos/partner/MoC-update.png"></div>
                     <div class="partner-logo"><img src="logos/partner/MoEYS.png"></div>
-                    <!-- Duplicate for loop -->
+                    <!-- Duplicate for infinite loop -->
                     <div class="partner-logo"><img src="logos/partner/AKU.png"></div>
                     <div class="partner-logo"><img src="logos/partner/BELTIE.png"></div>
                     <div class="partner-logo"><img src="logos/partner/CMU.png"></div>
@@ -668,9 +634,10 @@
                 </div>
             </div>
 
-            <!-- Row 2: Sliding Logos (Next 8, Duplicated) -->
-            <div class="slider-row">
+            <!-- Row 2 Slider -->
+            <div class="slider-row" id="slider-2">
                 <div class="slider-track">
+                    <!-- Set 2 -->
                     <div class="partner-logo"><img src="logos/partner/MoInspection.png"></div>
                     <div class="partner-logo"><img src="logos/partner/NDU.png"></div>
                     <div class="partner-logo"><img src="logos/partner/NU.png"></div>
@@ -679,7 +646,7 @@
                     <div class="partner-logo"><img src="logos/partner/RUPP.png"></div>
                     <div class="partner-logo"><img src="logos/partner/UHS.png"></div>
                     <div class="partner-logo"><img src="logos/partner/UK.png"></div>
-                    <!-- Duplicate for loop -->
+                    <!-- Duplicate for infinite loop -->
                     <div class="partner-logo"><img src="logos/partner/MoInspection.png"></div>
                     <div class="partner-logo"><img src="logos/partner/NDU.png"></div>
                     <div class="partner-logo"><img src="logos/partner/NU.png"></div>
@@ -690,7 +657,6 @@
                     <div class="partner-logo"><img src="logos/partner/UK.png"></div>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -715,15 +681,10 @@
                 <div class="social-block">
                     <div class="social-title" data-kh="សម្រាប់ព័ត៌មានថ្មីៗ" data-en="Social Media">សម្រាប់ព័ត៌មានថ្មីៗ</div>
                     <div class="social-icons">
-                       <!-- Facebook (Circle style) -->
                         <a href="#" class="s-icon"><i class="fa-brands fa-facebook"></i></a>
-                        <!-- Twitter -->
                         <a href="#" class="s-icon"><i class="fa-brands fa-twitter"></i></a>
-                        <!-- Instagram -->
                         <a href="#" class="s-icon"><i class="fa-brands fa-instagram"></i></a>
-                        <!-- Telegram (Moved before YouTube) -->
                         <a href="#" class="s-icon"><i class="fa-brands fa-telegram"></i></a>
-                        <!-- YouTube -->
                         <a href="#" class="s-icon"><i class="fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
@@ -740,19 +701,13 @@
     </footer>
 
     <script>
+        // --- Language Switching ---
         function switchLanguage(lang) {
             document.body.setAttribute('data-lang', lang);
-            
-            // Remove 'active' from all buttons
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            
-            // Add 'active' to the specific button clicked
             const activeBtn = document.getElementById(`btn-${lang}`);
-            if (activeBtn) {
-                activeBtn.classList.add('active');
-            }
+            if (activeBtn) activeBtn.classList.add('active');
 
-            // Text Switching Logic
             const elements = document.querySelectorAll('[data-kh]');
             elements.forEach(el => {
                 const text = el.getAttribute(`data-${lang}`);
@@ -770,17 +725,52 @@
                 }
             });
         }
+
+        // --- Hardware Accelerated Carousel Logic ---
+        function initCarousel(sliderId) {
+            const slider = document.getElementById(sliderId);
+            const track = slider.querySelector('.slider-track');
+            const items = track.querySelectorAll('.partner-logo');
+            const totalItems = items.length;
+            const singleSetCount = totalItems / 2;
+            
+            const gap = 80; // Match CSS gap
+            let currentIndex = 0;
+            let itemWidth = 0;
+
+            function calculateWidth() {
+                if (items.length > 0) {
+                    itemWidth = items[0].offsetWidth;
+                }
+            }
+
+            function move() {
+                currentIndex++;
+                
+                // Use the specific Bezier Curve from Glide.js for that 'snap' feel
+                track.style.transition = 'transform 600ms cubic-bezier(0.165, 0.84, 0.44, 1)';
+                const offset = -currentIndex * (itemWidth + gap);
+                track.style.transform = `translate3d(${offset}px, 0, 0)`;
+
+                // Loop reset
+                if (currentIndex >= singleSetCount) {
+                    setTimeout(() => {
+                        track.style.transition = 'none';
+                        currentIndex = 0;
+                        track.style.transform = `translate3d(0, 0, 0)`;
+                    }, 600); // Wait for transition to end
+                }
+            }
+
+            calculateWidth();
+            window.addEventListener('resize', calculateWidth);
+            setInterval(move, 3000); // Adjust timing as needed
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initCarousel('slider-1');
+            initCarousel('slider-2');
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
