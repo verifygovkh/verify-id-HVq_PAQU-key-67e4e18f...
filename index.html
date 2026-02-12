@@ -92,26 +92,45 @@
             font-weight: 600;
         }
         
-        .flags {
+        /* Updated Language Selector Styles */
+        .language-selector {
             display: flex;
-            gap: 11px;
+            gap: 1px;
             align-items: center;
         }
-        
-        .flag-icon {
-            width: 26px;
-            height: 18px;
-            border-radius: 2px;
-            border: 1px solid #dee2e6;
+
+        .lang-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px; /* Rounded square container */
+            border: 1px solid transparent;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.2s ease;
+            background-color: transparent;
         }
 
-        .flag-icon:hover { transform: scale(1.1); }
-        .flag-icon.active { outline: 2px solid var(--primary-blue); outline-offset: 1px; }
+        .lang-btn:hover {
+            background-color: #f8f9fa;
+        }
 
-        .flag-kh { background: url('https://flagcdn.com/kh.svg') no-repeat center/cover; }
-        .flag-en { background: url('https://flagcdn.com/gb.svg') no-repeat center/cover; }
+        .lang-btn.active {
+            border-color: #dee2e6;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        /* The Flag Image - Circular */
+        .lang-btn img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 1px solid rgba(0,0,0,0.1); /* Subtle border around flag */
+        }
 
         .mobile-menu-btn {
             display: none; /* Hidden by default */
@@ -495,10 +514,16 @@
                     <a href="#" class="nav-faq" data-kh="សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់" data-en="FAQ">សំណួរដែលត្រូវបានគេសួរជាញឹកញាប់</a>
                 </div>
                 
-                <!-- Flags (Visible always) -->
-                <div class="flags">
-                    <div class="flag-icon flag-kh active" onclick="switchLanguage('kh')" title="Khmer"></div>
-                    <div class="flag-icon flag-en" onclick="switchLanguage('en')" title="English"></div>
+                <!-- Flags (New Structure: Square button with circle flag) -->
+                <div class="language-selector">
+                    <!-- Khmer Button (Active by default) -->
+                    <div class="lang-btn active" id="btn-kh" onclick="switchLanguage('kh')" title="Khmer">
+                        <img src="https://flagcdn.com/w160/kh.png" alt="Khmer">
+                    </div>
+                    <!-- English Button -->
+                    <div class="lang-btn" id="btn-en" onclick="switchLanguage('en')" title="English">
+                        <img src="https://flagcdn.com/w160/gb.png" alt="English">
+                    </div>
                 </div>
 
                 <!-- Hamburger Menu (Visible on mobile via CSS) -->
@@ -741,6 +766,7 @@
     </script>
 </body>
 </html>
+
 
 
 
