@@ -370,7 +370,7 @@
         footer {
             width: 100%;
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 500;
         }
 
         .footer-main {
@@ -411,29 +411,28 @@
         }
         
         .social-title {
-            font-weight: 700;
+            font-weight: 500;
             margin-bottom: 12px;
             font-size: 14px;
         }
 
         .social-icons {
             display: flex;
-            gap: 12px;
+            gap: 20px; /* Space between icons */
+            align-items: center;
         }
 
         .s-icon {
-            width: 32px;
-            height: 32px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 14px;
+            /* Removed fixed width/height and background circles */
+            background: none;
+            width: auto;
+            height: auto;
+            border-radius: 0;
+            display: inline-block;
+            font-size: 28px; /* Larger icon size */
             color: white;
             text-decoration: none;
+            transition: opacity 0.2s;
         }
         
         .s-icon:hover {
@@ -692,11 +691,16 @@
                 <div class="social-block">
                     <div class="social-title" data-kh="សម្រាប់ព័ត៌មានថ្មីៗ" data-en="Social Media">សម្រាប់ព័ត៌មានថ្មីៗ</div>
                     <div class="social-icons">
-                        <a href="#" class="s-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                       <!-- Facebook (Circle style) -->
+                        <a href="#" class="s-icon"><i class="fa-brands fa-facebook"></i></a>
+                        <!-- Twitter -->
                         <a href="#" class="s-icon"><i class="fa-brands fa-twitter"></i></a>
+                        <!-- Instagram -->
                         <a href="#" class="s-icon"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="s-icon"><i class="fa-brands fa-youtube"></i></a>
+                        <!-- Telegram (Moved before YouTube) -->
                         <a href="#" class="s-icon"><i class="fa-brands fa-telegram"></i></a>
+                        <!-- YouTube -->
+                        <a href="#" class="s-icon"><i class="fa-brands fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -737,4 +741,5 @@
     </script>
 </body>
 </html>
+
 
