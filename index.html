@@ -462,7 +462,7 @@
                 flex-direction: row; 
                 align-items: flex-start;
             }
-            .label-col { width: 35%; padding-right: 10px; }
+            .label-col { width: 35%; }
             .value-col { width: 65%; }
             .label-text, .label-sub { font-size: 16px; }
             .value-text, .value-sub { font-size: 16px; }
@@ -471,8 +471,8 @@
         }
         
         @media (max-width: 480px) {
-            .label-col { width: 40%; }
-            .value-col { width: 60%; }
+            .label-col { width: 35%; }
+            .value-col { width: 65%; }
             .logo-area img { height: 32px; }
         }
     </style>
@@ -559,21 +559,17 @@
                         </div>
                     </div>
 
-                    <div class="data-row">
-                        <div class="label-col">
-                            <span class="label-text">សញ្ញាបត្រ</span>
-                            <span class="label-sub">Degree</span>
-                        </div>
-                        <div class="value-col">
-                            <span class="value-text">
-                                បរិញ្ញាបត្រគ្រប់គ្រងធុរកិច្ចៈ<br>
-                                ឯកទេស សហគ្រិនភាព និងការគ្រប់គ្រងសហគ្រាស
-                            </span>
-                            <span class="value-sub">
-                                Bachelor of Business Administration<br>
-                                in Entrepreneurship and Enterorise Management
-                            </span>
-                        </div>
+                    <div class="data-row" style="display: grid; grid-template-columns: 35% 65%; padding: 22px 0; border-bottom: 1px solid #bdbdbd; align-items: start; column-gap: 0; row-gap: 5px;">
+                        <span class="label-text" style="padding-right: 22px;">សញ្ញាបត្រ</span>
+                        <span class="value-text">
+                            បរិញ្ញាបត្រគ្រប់គ្រងធុរកិច្ចៈ<br>
+                            ឯកទេស សហគ្រិនភាព និងការគ្រប់គ្រងសហគ្រាស
+                        </span>
+                        <span class="label-sub" style="margin-top: 0; padding-right: 22px;">Degree</span>
+                        <span class="value-sub" style="margin-top: 0;">
+                            Bachelor of Business Administration<br>
+                            in Entrepreneurship and Enterorise Management
+                        </span>
                     </div>
 
                     <div class="data-row">
